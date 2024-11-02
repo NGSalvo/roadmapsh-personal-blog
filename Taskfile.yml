@@ -1,0 +1,78 @@
+version: '3'
+
+env:
+  STATIC_DIR: 'static/styles'
+
+vars:
+  NAME: 'personalblog'
+  VERSION: 'v0.0.1'
+
+tasks:
+  build:templ:
+    env:
+      TEMPL_EXPERIMENT: rawgo
+    cmds:
+      - go run github.com/a-h/templ/cmd/templ@v0.2.778 generate -v
+
+  build:styles:
+    cmds:
+      - pnpm dlx tailwindcss -c tailwind.config.js -i $STATIC_DIR/main.css -o $STATIC_DIR/styles.css
+
+  build:
+    cmds:
+      - go build -o cmd/{{.NAME}} .
+    deps:
+      - build:styles
+      - build:templ
+
+  debug:
+    cmds:
+      - go run github.com/go-delve/delve/cmd/dlv@v1.23.1 exec ./cmd/{{.NAME}}
+    deps:
+      - build
+
+  live:templ:
+    env:
+      TEMPL_EXPERIMENT: rawgo
+    cmds:
+      - go run github.com/a-h/templ/cmd/templ@v0.2.778 generate --watch --proxy="http://localhost:3000" --open-browser=false -v
+
+  live:styles:
+    cmds:
+      - pnpm dlx tailwindcss -c tailwind.config.js -i $STATIC_DIR/main.css -o $STATIC_DIR/styles.css --watch
+
+  live:server:
+    cmds:
+      - |
+        go run github.com/air-verse/air@v1.52.3 \
+        --build.cmd "go build -tags dev -o cmd/{{.NAME}}" \
+        --build.bin "cmd/{{.NAME}}" \
+        --build.delay "20" \
+        --build.exclude_dir "node_modules,data,public,assets,tmp,vendor,testdata" \
+        --build.include_ext "go,tpl,tmpl,templ,html" \
+        --build.stop_on_error "false" \
+        --misc.clean_on_exit true
+
+  live:sync_static:
+    cmds:
+      - |
+        go run github.com/air-verse/air@v1.52.3 \
+        --build.cmd "go run github.com/a-h/templ/cmd/templ@v0.2.778 generate --notify-proxy" \
+        --build.bin "true" \
+        --build.delay "100" \
+        --build.exclude_dir "" \
+        --build.include_dir "$STATIC_DIR" \
+        --build.include_ext "js,css"
+
+  live:
+    deps:
+      - live:templ
+      - live:server
+      - live:styles
+      - live:sync_static
+
+  run:
+    cmds:
+      - ./cmd/{{.NAME}}
+    deps:
+      - build
