@@ -1,0 +1,13 @@
+<head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><script type=\"module\" defer src=\"https://cdn.jsdelivr.net/npm/@sudodevnull/datastar\"></script><title>
+</title><link rel=\"shortcut icon\" href=\"static/images/favicon.ico\" type=\"image/x-icon\"><link rel=\"stylesheet\" href=\"/static/styles/styles.css\" type=\"text/css\"><link rel=\"preconnect\" href=\"https://fonts.googleapi.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin></head>
+<!doctype html><html lang=\"en\" class=\"h-screen max-h-screen bg-ctp-base\">
+<body class=\"h-screen isolate bg-background text-text\"><div class=\"w-full h-full overflow-y-scroll\"><main>
+</main></div></body></html>
+<section class=\"mt-4 ml-4\"><h1 class=\"text-primary text-2xl\">Personal Blog</h1><nav><ul class=\"w-[450px]\">
+</ul></nav></section>
+<li class=\"group\"><a href=\"
+\" class=\"flex justify-between hover:text-secondary visited:text-accent\"><span class=\"group-hover:text-secondary group-visited:text-accent\">
+</span> <time datetime=\"2024-11-03\" class=\"text-gray-600 group-hover:text-secondary group-visited:text-accent\">2024-11-03</time></a></li>
+<h1 class=\"text-3xl font-bold\">
+</h1><article class=\"prose md:prose-lg lg:prose-xl\">
+</article>

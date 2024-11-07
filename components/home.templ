@@ -27,10 +27,47 @@ templ page(title string) {
 	</html>
 }
 
-templ Home() {
+templ Home(articles []ArticleStore) {
 	@page("Personal Blog") {
-		<div class="flex flex-col h-screen items-center justify-center">
-			<h1 class="text-primary">Personal Blog</h1>
-		</div>
+		<section class="mt-4 ml-4">
+			<h1 class="text-primary text-2xl">Personal Blog</h1>
+			<nav>
+				<ul class="w-[450px]">
+					for _, article := range articles {
+						@ArticleLink(article)
+					}
+				</ul>
+			</nav>
+		</section>
+	}
+}
+
+templ ArticleLink(article ArticleStore) {
+	<li class="group">
+		<a href={ templ.SafeURL("/article/" + article.Slug) } class="flex justify-between hover:text-secondary visited:text-accent">
+			<span class="group-hover:text-secondary group-visited:text-accent">{ article.Title }</span>
+			<time datetime="2024-11-03" class="text-gray-600 group-hover:text-secondary group-visited:text-accent">2024-11-03</time>
+		</a>
+	</li>
+}
+
+type ArticleStore struct {
+	Title   string          `toml:"title"`
+	Content templ.Component `toml:"content"`
+	Author  Author          `toml:"author"`
+	Slug    string          `toml:"slug"`
+}
+
+type Author struct {
+	Name  string `toml:"name"`
+	Email string `toml:"email"`
+}
+
+templ Article(article ArticleStore) {
+	@page(article.Title) {
+		<h1 class="text-3xl font-bold">{ article.Title }</h1>
+		<article class="prose md:prose-lg lg:prose-xl">
+			@article.Content
+		</article>
 	}
 }

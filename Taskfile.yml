@@ -31,6 +31,10 @@ tasks:
     deps:
       - build
 
+  kill:
+    cmds:
+      - killall -q {{.NAME}}  || echo "Process was not running."
+
   live:templ:
     env:
       TEMPL_EXPERIMENT: rawgo
