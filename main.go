@@ -92,7 +92,6 @@ func getArticleHandler(w http.ResponseWriter, r *http.Request) {
 	slug := chi.URLParam(r, "slug")
 	fileReader := NewFileReader()
 
-	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 	article, err := fileReader.Read("static/blog/" + slug)
 	if err != nil {
 		http.Error(w, "Article not found", http.StatusNotFound)
@@ -120,7 +119,6 @@ func getArticleHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Error reading file", http.StatusInternalServerError)
 		log.Fatal(err)
 	}
-	logger.Info(buffer.String())
 
 	unsafe := func(html string) templ.Component {
 		return templ.ComponentFunc(func(ctx context.Context, w io.Writer) error {
