@@ -1,34 +1,9 @@
 package components
 
-templ head(title string) {
-	<head>
-		<meta charset="UTF-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-		<script type="module" defer src="https://cdn.jsdelivr.net/npm/@sudodevnull/datastar"></script>
-		<title>{ title }</title>
-		<link rel="shortcut icon" href="static/images/favicon.ico" type="image/x-icon"/>
-		<link rel="stylesheet" href="/static/styles/styles.css" type="text/css"/>
-		<link rel="preconnect" href="https://fonts.googleapi.com"/>
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-	</head>
-}
-
-templ page(title string) {
-	<!DOCTYPE html>
-	<html lang="en" class="h-screen max-h-screen bg-ctp-base">
-		@head(title)
-		<body class="h-screen isolate bg-background text-text">
-			<div class="w-full h-full overflow-y-scroll">
-				<main>
-					{ children... }
-				</main>
-			</div>
-		</body>
-	</html>
-}
+import "github.com/ngsalvo/roadmapsh-personal-blog/layouts"
 
 templ Home(articles []ArticleStore) {
-	@page("Personal Blog") {
+	@layouts.Page("Personal Blog") {
 		<section class="mt-4 ml-4">
 			<h1 class="text-primary text-2xl">Personal Blog</h1>
 			<nav>
@@ -64,7 +39,7 @@ type Author struct {
 }
 
 templ Article(article ArticleStore) {
-	@page(article.Title) {
+	@layouts.Page(article.Title) {
 		<h1 class="text-3xl font-bold">{ article.Title }</h1>
 		<article class="prose md:prose-lg lg:prose-xl">
 			@article.Content
