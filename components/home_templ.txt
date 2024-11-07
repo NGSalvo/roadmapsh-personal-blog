@@ -1,8 +1,2 @@
 <section class=\"mt-4 ml-4\"><h1 class=\"text-primary text-2xl\">Personal Blog</h1><nav><ul class=\"w-[450px]\">
 </ul></nav></section>
-<li class=\"group\"><a href=\"
-\" class=\"flex justify-between hover:text-secondary visited:text-accent\"><span class=\"group-hover:text-secondary group-visited:text-accent\">
-</span> <time datetime=\"2024-11-03\" class=\"text-gray-600 group-hover:text-secondary group-visited:text-accent\">2024-11-03</time></a></li>
-<h1 class=\"text-3xl font-bold\">
-</h1><article class=\"prose md:prose-lg lg:prose-xl\">
-</article>

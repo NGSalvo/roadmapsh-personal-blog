@@ -1,8 +1,11 @@
 package components
 
-import "github.com/ngsalvo/roadmapsh-personal-blog/layouts"
+import (
+	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
+	"github.com/ngsalvo/roadmapsh-personal-blog/layouts"
+)
 
-templ Home(articles []ArticleStore) {
+templ Home(articles []dtos.Article) {
 	@layouts.Page("Personal Blog") {
 		<section class="mt-4 ml-4">
 			<h1 class="text-primary text-2xl">Personal Blog</h1>
@@ -14,35 +17,5 @@ templ Home(articles []ArticleStore) {
 				</ul>
 			</nav>
 		</section>
-	}
-}
-
-templ ArticleLink(article ArticleStore) {
-	<li class="group">
-		<a href={ templ.SafeURL("/article/" + article.Slug) } class="flex justify-between hover:text-secondary visited:text-accent">
-			<span class="group-hover:text-secondary group-visited:text-accent">{ article.Title }</span>
-			<time datetime="2024-11-03" class="text-gray-600 group-hover:text-secondary group-visited:text-accent">2024-11-03</time>
-		</a>
-	</li>
-}
-
-type ArticleStore struct {
-	Title   string          `toml:"title"`
-	Content templ.Component `toml:"content"`
-	Author  Author          `toml:"author"`
-	Slug    string          `toml:"slug"`
-}
-
-type Author struct {
-	Name  string `toml:"name"`
-	Email string `toml:"email"`
-}
-
-templ Article(article ArticleStore) {
-	@layouts.Page(article.Title) {
-		<h1 class="text-3xl font-bold">{ article.Title }</h1>
-		<article class="prose md:prose-lg lg:prose-xl">
-			@article.Content
-		</article>
 	}
 }

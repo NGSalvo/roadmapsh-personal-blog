@@ -17,6 +17,7 @@ import (
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
 
 	"github.com/ngsalvo/roadmapsh-personal-blog/components"
+	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
 )
 
 func main() {
@@ -62,7 +63,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	articles := make([]components.ArticleStore, len(slugs))
+	articles := make([]dtos.Article, len(slugs))
 
 	for i, fileName := range slugs {
 		article, err := fileReader.Read("static/blog/" + fileName)
@@ -71,7 +72,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		var articleData components.ArticleStore
+		var articleData dtos.Article
 
 		_, err = frontmatter.Parse(strings.NewReader(article), &articleData)
 
@@ -98,7 +99,7 @@ func getArticleHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var articleData components.ArticleStore
+	var articleData dtos.Article
 
 	remainingMD, err := frontmatter.Parse(strings.NewReader(article), &articleData)
 
