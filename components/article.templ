@@ -17,10 +17,14 @@ templ ArticleLinkWithDate(article dtos.Article) {
 }
 
 templ ArticleLinkWithEdit(article dtos.Article) {
-	<li class="group">
-		<a href={ templ.SafeURL("/article/" + article.Slug) } class="flex justify-between hover:text-secondary visited:text-accent">
+	<li class="flex justify-between">
+		<a href={ templ.SafeURL("/article/" + article.Slug) } class="hover:text-secondary visited:text-accent">
 			<span class="group-hover:text-secondary group-visited:text-accent">{ article.Title }</span>
 		</a>
+		<div class="flex gap-3">
+			<p>Edit</p>
+			<p>Delete</p>
+		</div>
 	</li>
 }
 

@@ -1311,12 +1311,44 @@ html {
   max-width: 450px;
 }
 
+.flex-row{
+  flex-direction: row;
+}
+
+.flex-col{
+  flex-direction: column;
+}
+
+.items-baseline{
+  align-items: baseline;
+}
+
 .justify-between{
   justify-content: space-between;
 }
 
+.gap-2{
+  gap: 0.5rem;
+}
+
+.gap-4{
+  gap: 1rem;
+}
+
+.gap-3{
+  gap: 0.75rem;
+}
+
 .overflow-y-scroll{
   overflow-y: scroll;
+}
+
+.rounded-sm{
+  border-radius: 0.125rem;
+}
+
+.border-b-2{
+  border-bottom-width: 2px;
 }
 
 .bg-background{
@@ -1332,6 +1364,11 @@ html {
 .text-3xl{
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+
+.text-xl{
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-bold{

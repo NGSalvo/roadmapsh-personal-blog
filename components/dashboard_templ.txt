@@ -1,0 +1,2 @@
+<section class=\"mt-4 ml-4 mr-4\"><div class=\"flex justify-between max-w-[450px] items-baseline\"><h1 class=\"text-primary text-2xl\">Personal Blog</h1><button class=\"text-primary text-xl\">+ Add</button></div><nav><ul class=\"max-w-[450px]\">
+</ul></nav></section>
