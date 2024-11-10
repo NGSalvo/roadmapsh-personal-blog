@@ -1274,6 +1274,10 @@ html {
   margin-left: 1rem;
 }
 
+.mr-4{
+  margin-right: 1rem;
+}
+
 .mt-4{
   margin-top: 1rem;
 }
@@ -1294,12 +1298,17 @@ html {
   max-height: 100vh;
 }
 
-.w-\[450px\]{
-  width: 450px;
-}
-
 .w-full{
   width: 100%;
+}
+
+.w-max{
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.max-w-\[450px\]{
+  max-width: 450px;
 }
 
 .justify-between{

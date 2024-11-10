@@ -7,10 +7,10 @@ import (
 
 templ Home(articles []dtos.Article) {
 	@layouts.Page("Personal Blog") {
-		<section class="mt-4 ml-4">
+		<section class="mt-4 ml-4 mr-4">
 			<h1 class="text-primary text-2xl">Personal Blog</h1>
 			<nav>
-				<ul class="w-[450px]">
+				<ul class="max-w-[450px]">
 					for _, article := range articles {
 						@ArticleLinkWithDate(article)
 					}
