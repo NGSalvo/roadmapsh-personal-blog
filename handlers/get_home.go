@@ -3,7 +3,6 @@ package handlers
 import (
 	"log"
 	"net/http"
-	"os"
 	"strings"
 
 	"github.com/adrg/frontmatter"
@@ -29,22 +28,7 @@ func NewGetHome(fileReader services.FileReader) GetHome {
 func (h *getHome) Handle(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 
-	readFromAssets := func(path string) ([]string, error) {
-		dir, err := os.ReadDir(path)
-		if err != nil {
-			return nil, err
-		}
-
-		var files []string
-		for _, file := range dir {
-			fileName := strings.Split(file.Name(), ".")[0]
-			files = append(files, fileName)
-		}
-
-		return files, nil
-	}
-
-	slugs, err := readFromAssets("static/blog")
+	slugs, err := h.fileReader.GetFileNames("static/blog")
 	if err != nil {
 		http.Error(w, "Error reading blog directory", http.StatusInternalServerError)
 		return
