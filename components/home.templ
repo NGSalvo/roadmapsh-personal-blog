@@ -12,7 +12,7 @@ templ Home(articles []dtos.Article) {
 			<nav>
 				<ul class="w-[450px]">
 					for _, article := range articles {
-						@ArticleLink(article)
+						@ArticleLinkWithDate(article)
 					}
 				</ul>
 			</nav>

@@ -17,4 +17,5 @@ func ConfigureRoutes(r chi.Router) {
 
 	r.Get("/home", handlers.NewGetHome(fileReader).Handle)
 	r.Get("/article/{slug}", handlers.NewGetArticle(fileReader).Handle)
+	r.Get("/admin", handlers.NewGetAdmin(fileReader).Handle)
 }

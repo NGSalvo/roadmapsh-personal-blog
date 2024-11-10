@@ -1,15 +1,25 @@
 package components
 
 import (
+	"fmt"
 	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
 	"github.com/ngsalvo/roadmapsh-personal-blog/layouts"
+	"time"
 )
 
-templ ArticleLink(article dtos.Article) {
+templ ArticleLinkWithDate(article dtos.Article) {
 	<li class="group">
 		<a href={ templ.SafeURL("/article/" + article.Slug) } class="flex justify-between hover:text-secondary visited:text-accent">
 			<span class="group-hover:text-secondary group-visited:text-accent">{ article.Title }</span>
-			<time datetime="2024-11-03" class="text-gray-600 group-hover:text-secondary group-visited:text-accent">2024-11-03</time>
+			<time datetime={ fmt.Sprintf("%s", article.Date.Format(time.DateOnly)) } class="text-gray-600 group-hover:text-secondary group-visited:text-accent">{ article.Date.Format(time.DateOnly) }</time>
+		</a>
+	</li>
+}
+
+templ ArticleLinkWithEdit(article dtos.Article) {
+	<li class="group">
+		<a href={ templ.SafeURL("/article/" + article.Slug) } class="flex justify-between hover:text-secondary visited:text-accent">
+			<span class="group-hover:text-secondary group-visited:text-accent">{ article.Title }</span>
 		</a>
 	</li>
 }

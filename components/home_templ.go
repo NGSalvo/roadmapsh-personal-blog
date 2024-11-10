@@ -51,7 +51,7 @@ func Home(articles []dtos.Article) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			for _, article := range articles {
-				templ_7745c5c3_Err = ArticleLink(article).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = ArticleLinkWithDate(article).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
