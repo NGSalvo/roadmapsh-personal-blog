@@ -3,11 +3,10 @@ package handlers
 import (
 	"log"
 	"net/http"
-	"strings"
 
-	"github.com/adrg/frontmatter"
 	"github.com/ngsalvo/roadmapsh-personal-blog/components"
 	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
+	"github.com/ngsalvo/roadmapsh-personal-blog/repositories"
 	"github.com/ngsalvo/roadmapsh-personal-blog/services"
 )
 
@@ -17,11 +16,11 @@ type (
 	}
 
 	getAdmin struct {
-		fileReader services.FileReader
+		fileReader repositories.FileReader
 	}
 )
 
-func NewGetAdmin(fileReader services.FileReader) GetAdmin {
+func NewGetAdmin(fileReader repositories.FileReader) GetAdmin {
 	return &getAdmin{
 		fileReader: fileReader,
 	}
@@ -36,6 +35,7 @@ func (h *getAdmin) Handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	articles := make([]dtos.Article, len(slugs))
+	var articleData *dtos.Article
 
 	for i, fileName := range slugs {
 		article, err := h.fileReader.Read("static/blog/" + fileName)
@@ -44,9 +44,7 @@ func (h *getAdmin) Handle(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		var articleData dtos.Article
-
-		_, err = frontmatter.Parse(strings.NewReader(article), &articleData)
+		articleData, err = services.Parse[dtos.Article](article)
 
 		if err != nil {
 			http.Error(w, "Error parsing frontmatter", http.StatusInternalServerError)
@@ -54,7 +52,7 @@ func (h *getAdmin) Handle(w http.ResponseWriter, r *http.Request) {
 		}
 
 		articleData.Slug = slugs[i]
-		articles[i] = articleData
+		articles[i] = *articleData
 	}
 
 	components.Dashboard(articles).Render(r.Context(), w)

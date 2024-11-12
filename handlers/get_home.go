@@ -8,7 +8,7 @@ import (
 	"github.com/adrg/frontmatter"
 	"github.com/ngsalvo/roadmapsh-personal-blog/components"
 	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
-	"github.com/ngsalvo/roadmapsh-personal-blog/services"
+	"github.com/ngsalvo/roadmapsh-personal-blog/repositories"
 )
 
 type GetHome interface {
@@ -16,10 +16,10 @@ type GetHome interface {
 }
 
 type getHome struct {
-	fileReader services.FileReader
+	fileReader repositories.FileReader
 }
 
-func NewGetHome(fileReader services.FileReader) GetHome {
+func NewGetHome(fileReader repositories.FileReader) GetHome {
 	return &getHome{
 		fileReader: fileReader,
 	}

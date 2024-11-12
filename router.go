@@ -5,11 +5,11 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/ngsalvo/roadmapsh-personal-blog/handlers"
-	"github.com/ngsalvo/roadmapsh-personal-blog/services"
+	"github.com/ngsalvo/roadmapsh-personal-blog/repositories"
 )
 
 func ConfigureRoutes(r chi.Router) {
-	fileReader := services.NewFileReader()
+	fileReader := repositories.NewFileReader()
 	fileServer := http.FileServer(http.Dir("./static"))
 
 	r.Handle("/static/*", http.StripPrefix("/static/", fileServer))

@@ -3,6 +3,7 @@ package handlers
 import (
 	"bytes"
 	"context"
+	"errors"
 	"io"
 	"log"
 	"net/http"
@@ -13,7 +14,8 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/ngsalvo/roadmapsh-personal-blog/components"
 	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
-	"github.com/ngsalvo/roadmapsh-personal-blog/services"
+	customErrors "github.com/ngsalvo/roadmapsh-personal-blog/errors"
+	"github.com/ngsalvo/roadmapsh-personal-blog/repositories"
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
 )
@@ -23,10 +25,10 @@ type GetArticle interface {
 }
 
 type getArticle struct {
-	fileReader services.FileReader
+	fileReader repositories.FileReader
 }
 
-func NewGetArticle(fileReader services.FileReader) GetArticle {
+func NewGetArticle(fileReader repositories.FileReader) GetArticle {
 	return &getArticle{
 		fileReader: fileReader,
 	}
@@ -37,7 +39,14 @@ func (h *getArticle) Handle(w http.ResponseWriter, r *http.Request) {
 
 	article, err := h.fileReader.Read("static/blog/" + slug)
 	if err != nil {
-		http.Error(w, "Article not found", http.StatusNotFound)
+		var applicationError customErrors.ApplicationError
+		if errors.As(err, &applicationError) {
+			if strings.Contains(applicationError.Message, "article not found") {
+				http.Error(w, "Article not found", http.StatusNotFound)
+				return
+			}
+		}
+		http.Error(w, "Error reading file", http.StatusInternalServerError)
 		return
 	}
 
