@@ -18,6 +18,6 @@ func ConfigureRoutes(r chi.Router) {
 	r.Handle("/", http.RedirectHandler("/home", http.StatusPermanentRedirect))
 
 	r.Get("/home", handlers.NewGetHome(articleDatasource).Handle)
-	r.Get("/article/{slug}", handlers.NewGetArticle(fileReader).Handle)
+	r.Get("/article/{slug}", handlers.NewGetArticle(articleDatasource).Handle)
 	r.Get("/admin", handlers.NewGetAdmin(fileReader).Handle)
 }

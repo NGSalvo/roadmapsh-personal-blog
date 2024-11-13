@@ -16,6 +16,4 @@ func myFunc() {
 
 ## Subtitle
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut voluptas reiciendis odit, natus fugit non cum expedita aspernatur, vero consequuntur beatae exercitationem, animi qui? Corporis labore tempora ipsa enim obcaecati animi maxime pariatur, omnis facilis voluptates explicabo alias porro illo commodi impedit sint atque ratione amet voluptas incidunt velit sed.
-
-> Some quote
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium inventore corporis atque adipisci odit doloremque repellendus ut delectus rerum nobis, autem quis ratione eaque cum quam incidunt esse, ex voluptate quibusdam veritatis? Fugit, facere nesciunt.

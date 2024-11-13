@@ -35,7 +35,7 @@ func (h *getAdmin) Handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	articles := make([]dtos.Article, len(slugs))
-	var articleData *dtos.Article
+	var articleData *services.Frontmatter[dtos.Article]
 
 	for i, fileName := range slugs {
 		article, err := h.fileReader.Read("static/blog/" + fileName)
@@ -51,8 +51,8 @@ func (h *getAdmin) Handle(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 
-		articleData.Slug = slugs[i]
-		articles[i] = *articleData
+		articleData.Frontmatter.Slug = slugs[i]
+		articles[i] = *&articleData.Frontmatter
 	}
 
 	components.Dashboard(articles).Render(r.Context(), w)

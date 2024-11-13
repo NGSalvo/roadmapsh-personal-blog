@@ -7,14 +7,21 @@ import (
 	"github.com/adrg/frontmatter"
 )
 
-func Parse[T any](element string) (*T, error) {
-	var data T
+type Frontmatter[T any] struct {
+	Frontmatter T
+	RemaingData []byte
+}
 
-	_, err := frontmatter.Parse(strings.NewReader(element), &data)
+func Parse[T any](element string) (*Frontmatter[T], error) {
+	var data Frontmatter[T]
+
+	remainingData, err := frontmatter.Parse(strings.NewReader(element), &data.Frontmatter)
 
 	if err != nil {
 		return nil, fmt.Errorf("error parsing frontmatter: %w", err)
 	}
+
+	data.RemaingData = remainingData
 
 	return &data, nil
 }
