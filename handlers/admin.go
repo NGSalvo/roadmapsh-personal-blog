@@ -1,13 +1,13 @@
 package handlers
 
 import (
-	"log"
+	"errors"
 	"net/http"
+	"strings"
 
 	"github.com/ngsalvo/roadmapsh-personal-blog/components"
-	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
-	"github.com/ngsalvo/roadmapsh-personal-blog/repositories"
-	"github.com/ngsalvo/roadmapsh-personal-blog/services"
+	"github.com/ngsalvo/roadmapsh-personal-blog/datasources"
+	customErrors "github.com/ngsalvo/roadmapsh-personal-blog/errors"
 )
 
 type (
@@ -16,43 +16,35 @@ type (
 	}
 
 	getAdmin struct {
-		fileReader repositories.FileReader
+		articleDatasource datasources.ArticlesDatasource
 	}
 )
 
-func NewGetAdmin(fileReader repositories.FileReader) GetAdmin {
+func NewGetAdmin(articleDatasource datasources.ArticlesDatasource) GetAdmin {
 	return &getAdmin{
-		fileReader: fileReader,
+		articleDatasource: articleDatasource,
 	}
 }
 
 func (h *getAdmin) Handle(w http.ResponseWriter, r *http.Request) {
-	slugs, err := h.fileReader.GetFileNames("static/blog")
+	articles, err := h.articleDatasource.GetArticles()
 
 	if err != nil {
-		http.Error(w, "Error reading blog directory", http.StatusInternalServerError)
+		var applicationError customErrors.ApplicationError
+		if errors.As(err, &applicationError) {
+			if strings.Contains(applicationError.Message, "article not found") {
+				http.Error(w, "Article not found", http.StatusNotFound)
+				return
+			}
+
+			if strings.Contains(applicationError.Message, "article directory not found") {
+				http.Error(w, "Article directory not found", http.StatusNotFound)
+				return
+			}
+		}
+
+		http.Error(w, "Error getting articles", http.StatusInternalServerError)
 		return
-	}
-
-	articles := make([]dtos.Article, len(slugs))
-	var articleData *services.Frontmatter[dtos.Article]
-
-	for i, fileName := range slugs {
-		article, err := h.fileReader.Read("static/blog/" + fileName)
-		if err != nil {
-			http.Error(w, "Article not found", http.StatusNotFound)
-			return
-		}
-
-		articleData, err = services.Parse[dtos.Article](article)
-
-		if err != nil {
-			http.Error(w, "Error parsing frontmatter", http.StatusInternalServerError)
-			log.Fatal(err)
-		}
-
-		articleData.Frontmatter.Slug = slugs[i]
-		articles[i] = *&articleData.Frontmatter
 	}
 
 	components.Dashboard(articles).Render(r.Context(), w)
