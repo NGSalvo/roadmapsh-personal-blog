@@ -8,9 +8,9 @@ import (
 templ Dashboard(articles []dtos.Article) {
 	@layouts.Page("Personal Blog") {
 		<section class="mt-4 ml-4 mr-4">
-			<div class="flex justify-between max-w-[450px] items-baseline">
+			<div class="flex justify-between max-w-[450px] items-baseline mb-2">
 				<h1 class="text-primary text-2xl">Personal Blog</h1>
-				<button class="text-primary text-xl">+ Add</button>
+				<button class="text-primary text-lg hover:bg-accent hover:text-background hover:rounded px-[2px]">+ Add</button>
 			</div>
 			<nav>
 				<ul class="max-w-[450px]">

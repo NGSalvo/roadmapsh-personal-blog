@@ -1,8 +1,10 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
+	"github.com/delaneyj/datastar"
 	"github.com/go-chi/chi/v5"
 	"github.com/ngsalvo/roadmapsh-personal-blog/datasources"
 	"github.com/ngsalvo/roadmapsh-personal-blog/handlers"
@@ -18,6 +20,14 @@ func ConfigureRoutes(r chi.Router) {
 	r.Handle("/", http.RedirectHandler("/home", http.StatusPermanentRedirect))
 
 	r.Get("/home", handlers.NewGetHome(articleDatasource).Handle)
-	r.Get("/article/{slug}", handlers.NewGetArticle(articleDatasource).Handle)
 	r.Get("/admin", handlers.NewGetAdmin(articleDatasource).Handle)
+
+	r.Get("/article/{slug}", handlers.NewGetArticle(articleDatasource).Handle)
+	r.Get("/article/{slug}/edit", handlers.NewGetArticleEdit(articleDatasource).Handle)
+	r.Put("/article/update", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("PUT /article/{slug}/edit")
+		datastar.NewSSE(w, r)
+		return
+	})
+
 }
