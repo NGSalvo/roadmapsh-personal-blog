@@ -49,7 +49,9 @@ func ConfigureRoutes(r chi.Router) {
 			return
 		}
 
-		datastar.NewSSE(w, r)
+		sse := datastar.NewSSE(w, r)
+		datastar.Redirect(sse, "/admin")
+
 		return
 	})
 
