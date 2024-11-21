@@ -43,5 +43,5 @@ func (h *getArticleEdit) Handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	components.ArticleEdit(*article).Render(r.Context(), w)
+	components.ArticleEdit(article).Render(r.Context(), w)
 }

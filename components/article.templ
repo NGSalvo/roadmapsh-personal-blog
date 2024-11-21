@@ -2,9 +2,11 @@ package components
 
 import (
 	"fmt"
+	"github.com/delaneyj/datastar"
 	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
 	"github.com/ngsalvo/roadmapsh-personal-blog/layouts"
 	"time"
+	"log"
 )
 
 templ ArticleLinkWithDate(article dtos.Article) {
@@ -47,17 +49,21 @@ templ Article(article dtos.Article) {
 	}
 }
 
-templ ArticleEdit(article dtos.Article) {
+templ ArticleEdit(article *dtos.Article) {
+	{{ log.Printf("%+v", article) }}
 	@layouts.Page("Update article") {
-		<div class="flex flex-col">
+		<div
+			class="flex flex-col"
+			data-store={ fmt.Sprintf("{'title': '%s', 'content': '%s'}", article.Title, article.ContentString) }
+		>
 			<h1 class="text-3xl font-bold">Update Article</h1>
 			<div class="flex flex-col max-w-80 md:max-w-full mb-2">
-				<input type="text" name="title" placeholder="Article title"/>
-				<textarea name="content" placeholder="Content" rows="10"></textarea>
+				<input type="text" name="title" placeholder="Article title" data-model="title"/>
+				<textarea name="content" placeholder="Content" rows="10" data-model="content"></textarea>
 			</div>
 			<button
 				class="p-2 bg-accent text-background w-fit rounded"
-				data-on-click="$$put('/article/update')"
+				data-on-click={ datastar.PUT("/article/%s/edit", article.Slug) }
 			>
 				Update
 			</button>

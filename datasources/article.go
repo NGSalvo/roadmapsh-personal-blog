@@ -122,9 +122,13 @@ func (d *articlesDatasource) GetArticle(slug string) (*dtos.Article, error) {
 		})
 	}
 
+	contentString := string(articleData.RemaingData)
+	articleData.Frontmatter.ContentString = contentString
+
 	content := unsafe(buffer.String())
 
 	articleData.Frontmatter.Content = content
+	articleData.Frontmatter.Slug = slug
 
 	return &articleData.Frontmatter, nil
 }

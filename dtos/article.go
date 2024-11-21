@@ -7,9 +7,15 @@ import (
 )
 
 type Article struct {
-	Title   string          `toml:"title"`
-	Content templ.Component `toml:"content"`
-	Author  Author          `toml:"author"`
-	Slug    string          `toml:"slug"`
-	Date    time.Time       `toml:"date"`
+	Title         string          `toml:"title"`
+	Content       templ.Component `toml:"content"`
+	Author        Author          `toml:"author"`
+	Slug          string          `toml:"slug"`
+	Date          time.Time       `toml:"date"`
+	ContentString string
+}
+
+type ArticleStore struct {
+	Title   string `json:"title"`
+	Content string `json:"content"`
 }
