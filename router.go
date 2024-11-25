@@ -23,4 +23,5 @@ func ConfigureRoutes(r chi.Router) {
 	r.Get("/article/{slug}", handlers.NewGetArticle(articleDatasource).Handle)
 	r.Get("/article/{slug}/edit", handlers.NewGetArticleEdit(articleDatasource).Handle)
 	r.Put("/article/{slug}/edit", handlers.NewUpdateArticle(fileReader).Handle)
+	r.Delete("/article/{slug}/delete", handlers.NewDeleteArticle(fileReader).Handle)
 }

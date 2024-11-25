@@ -103,3 +103,7 @@ func titleSlug(title string) string {
 
 	return toolbelt.Kebab(sanitazed)
 }
+
+func (fr FileReader) Delete(slug string) error {
+	return os.Remove("static/blog/" + slug + ".md")
+}

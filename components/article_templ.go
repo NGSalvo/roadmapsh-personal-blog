@@ -150,8 +150,12 @@ func ArticleLinkWithEdit(article dtos.Article) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var10 templ.SafeURL = templ.SafeURL("/article/delete/" + article.Slug)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var10)))
+		var templ_7745c5c3_Var10 string
+		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("$confirm = confirm('Are you sure you want to delete %s?'); $confirm && $$delete('/article/%s/delete')", article.Title, article.Slug))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/article.templ`, Line: 36, Col: 164}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -203,7 +207,7 @@ func Article(article dtos.Article) templ.Component {
 			var templ_7745c5c3_Var13 string
 			templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(article.Title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/article.templ`, Line: 45, Col: 48}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/article.templ`, Line: 46, Col: 48}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 			if templ_7745c5c3_Err != nil {
@@ -272,7 +276,7 @@ func ArticleEdit(article *dtos.Article) templ.Component {
 			var templ_7745c5c3_Var16 string
 			templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("{'title': '%s', 'content': '%s'}", article.Title, article.ContentString))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/article.templ`, Line: 57, Col: 101}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/article.templ`, Line: 58, Col: 101}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 			if templ_7745c5c3_Err != nil {
@@ -285,7 +289,7 @@ func ArticleEdit(article *dtos.Article) templ.Component {
 			var templ_7745c5c3_Var17 string
 			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(datastar.PUT("/article/%s/edit", article.Slug))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/article.templ`, Line: 66, Col: 66}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `components/article.templ`, Line: 67, Col: 66}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 			if templ_7745c5c3_Err != nil {

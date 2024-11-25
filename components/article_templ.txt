@@ -3,11 +3,11 @@
 </span> <time datetime=\"
 \" class=\"text-gray-600 group-hover:text-secondary group-visited:text-accent\">
 </time></a></li>
-<li class=\"flex justify-between\"><a href=\"
+<li class=\"flex justify-between\" data-store=\"{confirm: false}\"><a href=\"
 \" class=\"hover:text-secondary visited:text-accent\"><span class=\"group-hover:text-secondary group-visited:text-accent\">
 </span></a><div class=\"flex gap-2 mb-2\"><a href=\"
-\" class=\"py-[1px] px-3 ring-1 ring-emerald-500 hover:bg-emerald-500 hover:text-background rounded text-sm\">Edit</a> <a href=\"
-\" class=\"py-[1px] px-3 ring-1 ring-rose-600 hover:bg-rose-600 hover:text-background rounded text-sm\">Delete</a></div></li>
+\" class=\"py-[1px] px-3 ring-1 ring-emerald-500 hover:bg-emerald-500 hover:text-background rounded text-sm\">Edit</a> <button id=\"dialogs\" class=\"py-[1px] px-3 ring-1 ring-rose-600 hover:bg-rose-600 hover:text-background rounded text-sm\" data-on-click=\"
+\">Delete\t</button></div></li>
 <h1 class=\"text-3xl font-bold\">
 </h1><article class=\"prose md:prose-lg lg:prose-xl\">
 </article>
