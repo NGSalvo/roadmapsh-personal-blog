@@ -3,7 +3,6 @@ package repositories
 import (
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"regexp"
 	"strings"
@@ -74,8 +73,6 @@ func (fr FileReader) Update(slug string, store *dtos.ArticleStore) error {
 
 	frontmatter := strings.Replace(currentContent[1], "toml", "", 1)
 	md := strings.Join(currentContent[2:], "---")
-
-	log.Printf("frontmatter: %s\nmd: %s", frontmatter, md)
 
 	frontmatterProperties := strings.Split(frontmatter, "\n")
 
