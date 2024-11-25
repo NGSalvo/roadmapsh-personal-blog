@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"regexp"
 	"strings"
 
 	"github.com/delaneyj/toolbelt"
@@ -105,9 +106,14 @@ func (fr FileReader) Update(slug string, store *dtos.ArticleStore) error {
 		return fmt.Errorf("%w: %s", errors.ErrorWritingFile, err.Error())
 	}
 
-	os.Rename("static/blog/"+slug+".md", "static/blog/"+toolbelt.Kebab(store.Title)+".md")
-
-	// TODO: title slug should remove invalid filename characters
+	os.Rename("static/blog/"+slug+".md", "static/blog/"+titleSlug(store.Title)+".md")
 
 	return nil
+}
+
+func titleSlug(title string) string {
+	illegalCharacters := regexp.MustCompile(`[<>:"/\\|?*\x00-\x1F]`)
+	sanitazed := illegalCharacters.ReplaceAllString(title, "")
+
+	return toolbelt.Kebab(sanitazed)
 }
