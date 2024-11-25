@@ -77,14 +77,6 @@ func (fr FileReader) Update(slug string, store *dtos.ArticleStore) error {
 
 	log.Printf("frontmatter: %s\nmd: %s", frontmatter, md)
 
-	// 1. update frontmatter
-	// 1.1 update title
-	// 2. update article
-	// 2.1 update content
-	// 3 merge frontmatter and article
-	// 4. write to file static/blog/{slug}.md and rename to title by kebab casing it
-
-	// 1.1
 	frontmatterProperties := strings.Split(frontmatter, "\n")
 
 	for i, property := range frontmatterProperties {
@@ -93,14 +85,11 @@ func (fr FileReader) Update(slug string, store *dtos.ArticleStore) error {
 		}
 	}
 
-	// 2.1
 	md = store.Content
 
-	// 3
 	frontmatter = strings.Join(frontmatterProperties, "\n")
 	updatedArticle := fmt.Sprintf("---toml\n%s\n---\n\n%s", frontmatter, md)
 
-	//4
 	err = os.WriteFile("static/blog/"+slug+".md", []byte(updatedArticle), 0644)
 	if err != nil {
 		return fmt.Errorf("%w: %s", errors.ErrorWritingFile, err.Error())
