@@ -6,6 +6,7 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"time"
 
 	"github.com/delaneyj/toolbelt"
 
@@ -106,4 +107,12 @@ func titleSlug(title string) string {
 
 func (fr FileReader) Delete(slug string) error {
 	return os.Remove("static/blog/" + slug + ".md")
+}
+
+func (fr FileReader) Create(article *dtos.NewArticle) error {
+	date := time.Now().Local().Format(time.DateOnly)
+
+	content := fmt.Sprintf("---toml\ntitle = \"%s\"\ndate = %s\n---\n\n%s", article.Title, date, article.Content)
+
+	return os.WriteFile("static/blog/"+titleSlug(article.Title)+".md", []byte(content), 0644)
 }
