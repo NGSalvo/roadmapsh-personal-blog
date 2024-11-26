@@ -14,3 +14,5 @@
 <div class=\"flex flex-col\" data-store=\"
 \"><h1 class=\"text-3xl font-bold\">Update Article</h1><div class=\"flex flex-col max-w-80 md:max-w-full mb-2\"><input type=\"text\" name=\"title\" placeholder=\"Article title\" data-model=\"title\"> <textarea name=\"content\" placeholder=\"Content\" rows=\"10\" data-model=\"content\"></textarea></div><button class=\"p-2 bg-accent text-background w-fit rounded\" data-on-click=\"
 \">Update</button></div>
+<div class=\"flex flex-col\" data-store=\"{&#39;title&#39;: &#39;&#39;, content: &#39;&#39;}\"><h1 class=\"text-3xl font-bold\">New Article</h1><div class=\"flex flex-col max-w-80 md:max-w-full mb-2\"><input type=\"text\" name=\"title\" placeholder=\"Article title\" data-model=\"title\"> <textarea name=\"content\" placeholder=\"Content\" rows=\"10\" data-model=\"content\"></textarea></div><button class=\"p-2 bg-accent text-background w-fit rounded\" data-on-click=\"
+\">Create</button></div>

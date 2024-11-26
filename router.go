@@ -20,6 +20,8 @@ func ConfigureRoutes(r chi.Router) {
 	r.Get("/home", handlers.NewGetHome(articleDatasource).Handle)
 	r.Get("/admin", handlers.NewGetAdmin(articleDatasource).Handle)
 
+	r.Get("/article/new", handlers.NewGetCreateArticle().Handle)
+	// r.Post("/article/new", handlers.NewCreateArticle(fileReader).Handle)
 	r.Get("/article/{slug}", handlers.NewGetArticle(articleDatasource).Handle)
 	r.Get("/article/{slug}/edit", handlers.NewGetArticleEdit(articleDatasource).Handle)
 	r.Put("/article/{slug}/edit", handlers.NewUpdateArticle(fileReader).Handle)

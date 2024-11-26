@@ -10,7 +10,10 @@ templ Dashboard(articles []dtos.Article) {
 		<section class="mt-4 ml-4 mr-4">
 			<div class="flex justify-between max-w-[450px] items-baseline mb-2">
 				<h1 class="text-primary text-2xl">Personal Blog</h1>
-				<button class="text-primary text-lg hover:bg-accent hover:text-background hover:rounded px-[2px]">+ Add</button>
+				<a
+					href={ templ.SafeURL("/article/new") }
+					class="text-primary text-lg hover:bg-accent hover:text-background hover:rounded px-[2px]"
+				>+ Add</a>
 			</div>
 			<nav>
 				<ul class="max-w-[450px]">

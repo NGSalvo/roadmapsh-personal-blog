@@ -19,3 +19,8 @@ type ArticleStore struct {
 	Title   string `json:"title"`
 	Content string `json:"content"`
 }
+
+type NewArticle struct {
+	Title   string `json:"title"`
+	Content string `json:"content"`
+}
