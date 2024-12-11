@@ -1,2 +1,6 @@
-<section class=\"mt-4 ml-4 mr-4\"><h1 class=\"text-primary text-2xl\">Personal Blog</h1><nav><ul class=\"max-w-[450px]\">
+<section class=\"mt-4 ml-4 mr-4\"><div class=\"flex justify-between items-baseline\"><h1 class=\"text-primary text-2xl\">Personal Blog</h1>
+<a href=\"/login\" class=\"py-1 px-3 text-primary hover:bg-accent hover:text-background rounded text-sm\">Login</a>
+<div><a href=\"/admin\" class=\"py-1 px-3 text-primary hover:bg-accent hover:text-background rounded text-sm\">Dashboard </a> <button class=\"py-1 px-3 text-primary hover:bg-accent hover:text-background rounded text-sm\" data-on-click=\"
+\">Logout</button></div>
+</div><nav><ul class=\"max-w-[450px]\">
 </ul></nav></section>

@@ -8,8 +8,10 @@ require (
 	github.com/delaneyj/datastar v0.19.9
 	github.com/delaneyj/toolbelt v0.2.10
 	github.com/go-chi/chi/v5 v5.1.0
+	github.com/gorilla/sessions v1.4.0
 	github.com/yuin/goldmark v1.7.8
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc
+	golang.org/x/crypto v0.25.0
 )
 
 require (
@@ -27,6 +29,7 @@ require (
 	github.com/go-sanitize/sanitize v1.1.0 // indirect
 	github.com/goccy/go-json v0.10.3 // indirect
 	github.com/google/uuid v1.6.0 // indirect
+	github.com/gorilla/securecookie v1.1.2 // indirect
 	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/igrmk/treemap/v2 v2.0.1 // indirect
 	github.com/klauspost/compress v1.17.9 // indirect
@@ -51,7 +54,6 @@ require (
 	github.com/ysmood/gson v0.7.3 // indirect
 	github.com/ysmood/leakless v0.8.0 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
-	golang.org/x/crypto v0.25.0 // indirect
 	golang.org/x/exp v0.0.0-20241108190413-2d47ceb2692f // indirect
 	golang.org/x/sync v0.9.0 // indirect
 	golang.org/x/sys v0.23.0 // indirect

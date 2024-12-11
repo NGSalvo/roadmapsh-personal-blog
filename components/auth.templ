@@ -1,0 +1,39 @@
+package components
+
+import (
+	"github.com/delaneyj/datastar"
+	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
+	"github.com/ngsalvo/roadmapsh-personal-blog/layouts"
+)
+
+templ Login(store dtos.UserLogin) {
+	@layouts.Page("Login") {
+		<section id="login" class="flex flex-col w-96 place-self-center" data-store={ templ.JSONString(store) }>
+			<label for="user">Username</label>
+			<input type="text" name="user" data-model="username"/>
+			<label for="password">Password</label>
+			<input type="password" name="password" data-model="password"/>
+			<button
+				class="mt-1 py-2 px-3 text-background bg-accent hover:bg-primary rounded text-sm"
+				data-on-click={ datastar.POST("/login") }
+			>Log-in</button>
+			<a href="/register" class="mt-2 hover:text-primary text-sm">Sign-in</a>
+			<div id="login-error"></div>
+		</section>
+	}
+}
+
+templ SignIn() {
+	@layouts.Page("Login") {
+		<section id="login" class="flex flex-col w-96 place-self-center" data-store='{"username": "", "password": ""}'>
+			<label for="user">Username</label>
+			<input type="text" name="user" data-model="username"/>
+			<label for="password">Password</label>
+			<input type="password" name="password" data-model="password"/>
+			<button
+				class="mt-1 py-2 px-3 text-background bg-accent hover:bg-primary rounded text-sm"
+				data-on-click={ datastar.POST("/register") }
+			>Sign-in</button>
+		</section>
+	}
+}

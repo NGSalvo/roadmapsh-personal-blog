@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/gorilla/sessions"
 	"github.com/ngsalvo/roadmapsh-personal-blog/components"
 	"github.com/ngsalvo/roadmapsh-personal-blog/datasources"
 	customErrors "github.com/ngsalvo/roadmapsh-personal-blog/errors"
@@ -16,11 +17,13 @@ type GetHome interface {
 
 type getHome struct {
 	articleDatasource datasources.ArticlesDatasource
+	session           sessions.Store
 }
 
-func NewGetHome(articleDatasource datasources.ArticlesDatasource) GetHome {
+func NewGetHome(articleDatasource datasources.ArticlesDatasource, session sessions.Store) GetHome {
 	return &getHome{
 		articleDatasource: articleDatasource,
+		session:           session,
 	}
 }
 
@@ -47,5 +50,12 @@ func (h *getHome) Handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	components.Home(articles).Render(r.Context(), w)
+	session, _ := h.session.Get(r, "connections")
+	username, ok := session.Values["username"].(string)
+
+	if !ok {
+		username = ""
+	}
+
+	components.Home(articles, username).Render(r.Context(), w)
 }
