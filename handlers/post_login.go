@@ -58,11 +58,6 @@ func (h *postLogin) Handle(w http.ResponseWriter, r *http.Request) {
 
 	internal.CreateSession(h.session, w, r, store.Username)
 
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
 	sse := datastar.NewSSE(w, r)
 
 	datastar.Redirect(sse, "/")
