@@ -8,6 +8,7 @@ require (
 	github.com/delaneyj/datastar v0.19.9
 	github.com/delaneyj/toolbelt v0.2.10
 	github.com/go-chi/chi/v5 v5.1.0
+	github.com/gorilla/csrf v1.7.2
 	github.com/gorilla/sessions v1.4.0
 	github.com/yuin/goldmark v1.7.8
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc

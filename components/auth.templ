@@ -35,5 +35,6 @@ templ SignIn() {
 				data-on-click={ datastar.POST("/register") }
 			>Sign-in</button>
 		</section>
+		<pre>{ ctx.Value("gorilla.csrf.Token").(string) }</pre>
 	}
 }
