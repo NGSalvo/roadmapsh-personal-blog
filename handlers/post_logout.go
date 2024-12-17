@@ -8,21 +8,24 @@ import (
 	"github.com/ngsalvo/roadmapsh-personal-blog/internal"
 )
 
-type PostLogout struct {
+type PostLogout interface {
+	Handle(w http.ResponseWriter, r *http.Request)
+}
+
+type postLogout struct {
 	session sessions.Store
 }
 
 func NewPostLogout(session sessions.Store) PostLogout {
-	return PostLogout{
+	return &postLogout{
 		session: session,
 	}
 }
 
-func (h PostLogout) Handle(w http.ResponseWriter, r *http.Request) {
+func (h *postLogout) Handle(w http.ResponseWriter, r *http.Request) {
 	internal.ClearSession(h.session, w, r)
 
 	sse := datastar.NewSSE(w, r)
 
 	datastar.Redirect(sse, "/")
-
 }
