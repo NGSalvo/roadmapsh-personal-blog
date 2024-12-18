@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/delaneyj/datastar"
 	"github.com/gorilla/sessions"
+	datastar "github.com/starfederation/datastar/sdk/go"
 
 	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
 	"github.com/ngsalvo/roadmapsh-personal-blog/internal"
@@ -34,7 +34,7 @@ func (h *postLogin) Handle(w http.ResponseWriter, r *http.Request) {
 	log.Println("POST /login")
 
 	var store dtos.UserLogin
-	err := datastar.BodyUnmarshal(r, &store)
+	err := datastar.ReadSignals(r, &store)
 
 	if err != nil {
 		log.Println("Unmarshal error: ", err)
@@ -46,24 +46,19 @@ func (h *postLogin) Handle(w http.ResponseWriter, r *http.Request) {
 	if user == nil || !auth.CheckPasswordHash(store.Password, user.HashedPassword) {
 		sse := datastar.NewSSE(w, r)
 
-		datastar.PatchStore(sse, dtos.UserLogin{
+		sse.MarshalAndMergeSignals(dtos.UserLogin{
 			Username: store.Username,
 			Password: "",
 		})
 
-		datastar.RenderFragmentString(sse, "<div id=\"login-error\" class=\"alert alert-danger\">Invalid username or password</div>", datastar.WithQuerySelectorID("login-error"))
+		sse.MergeFragments("<div id=\"login-error\" class=\"alert alert-danger\">Invalid username or password</div>", datastar.WithSelectorID("login-error"))
 
 		return
 	}
 
 	internal.CreateSession(h.session, w, r, store.Username)
 
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
 	sse := datastar.NewSSE(w, r)
 
-	datastar.Redirect(sse, "/")
+	sse.Redirect("/")
 }

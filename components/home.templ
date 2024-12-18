@@ -1,9 +1,9 @@
 package components
 
 import (
-	"github.com/delaneyj/datastar"
 	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
 	"github.com/ngsalvo/roadmapsh-personal-blog/layouts"
+	datastar "github.com/starfederation/datastar/sdk/go"
 )
 
 templ Home(articles []dtos.Article, username string) {
@@ -26,7 +26,7 @@ templ Home(articles []dtos.Article, username string) {
 						>
 							Dashboard 
 						</a>
-						<button class="py-1 px-3 text-primary hover:bg-accent hover:text-background rounded text-sm" data-on-click={ datastar.POST("/logout") }>Logout</button>
+						<button class="py-1 px-3 text-primary hover:bg-accent hover:text-background rounded text-sm" data-on-click={ datastar.PostSSE("/logout") }>Logout</button>
 					</div>
 				}
 			</div>

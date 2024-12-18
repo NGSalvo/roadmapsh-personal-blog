@@ -2,7 +2,7 @@ package components
 
 import (
 	"fmt"
-	"github.com/delaneyj/datastar"
+	datastar "github.com/starfederation/datastar/sdk/go"
 	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
 	"github.com/ngsalvo/roadmapsh-personal-blog/layouts"
 	"time"
@@ -19,7 +19,7 @@ templ ArticleLinkWithDate(article dtos.Article) {
 }
 
 templ ArticleLinkWithEdit(article dtos.Article) {
-	<li class="flex justify-between" data-store="{confirm: false}">
+	<li class="flex justify-between" data-signals="{confirm: false}">
 		<a href={ templ.SafeURL("/article/" + article.Slug) } class="hover:text-secondary visited:text-accent">
 			<span class="group-hover:text-secondary group-visited:text-accent">{ article.Title }</span>
 		</a>
@@ -33,7 +33,7 @@ templ ArticleLinkWithEdit(article dtos.Article) {
 			<button 
 				id="dialogs"
 				class="py-[1px] px-3 ring-1 ring-rose-600 hover:bg-rose-600 hover:text-background rounded text-sm"
-				data-on-click={fmt.Sprintf("$confirm = confirm('Are you sure you want to delete %s?'); $confirm && $$delete('/article/%s/delete')", article.Title, article.Slug)}
+				data-on-click={fmt.Sprintf("confirm.value = confirm('Are you sure you want to delete %s?'); confirm.value && sse('/article/%s/delete', {method: 'delete'})", article.Title, article.Slug)}
 			>
 				Delete	
 			</button>
@@ -55,16 +55,16 @@ templ ArticleEdit(article *dtos.Article) {
 	@layouts.Page("Update article") {
 		<div
 			class="flex flex-col"
-			data-store={ fmt.Sprintf("{'title': '%s', 'content': '%s'}", article.Title, article.ContentString) }
+			data-signals={ fmt.Sprintf("{'title': '%s', 'content': '%s'}", article.Title, article.ContentString) }
 		>
 			<h1 class="text-3xl font-bold">Update Article</h1>
 			<div class="flex flex-col max-w-80 md:max-w-full mb-2">
-				<input type="text" name="title" placeholder="Article title" data-model="title"/>
-				<textarea name="content" placeholder="Content" rows="10" data-model="content"></textarea>
+				<input type="text" name="title" placeholder="Article title" data-bind="title"/>
+				<textarea name="content" placeholder="Content" rows="10" data-bind="content"></textarea>
 			</div>
 			<button
 				class="p-2 bg-accent text-background w-fit rounded"
-				data-on-click={ datastar.PUT("/article/%s/edit", article.Slug) }
+				data-on-click={ datastar.PutSSE("/article/%s/edit", article.Slug) }
 			>
 				Update
 			</button>
@@ -76,16 +76,16 @@ templ NewArticle() {
 	@layouts.Page("New article"){
 			<div
 			class="flex flex-col"
-			data-store="{'title': '', content: ''}"
+			data-signals="{'title': '', content: ''}"
 		>
 			<h1 class="text-3xl font-bold">New Article</h1>
 			<div class="flex flex-col max-w-80 md:max-w-full mb-2">
-				<input type="text" name="title" placeholder="Article title" data-model="title"/>
-				<textarea name="content" placeholder="Content" rows="10" data-model="content"></textarea>
+				<input type="text" name="title" placeholder="Article title" data-bind="title"/>
+				<textarea name="content" placeholder="Content" rows="10" data-bind="content"></textarea>
 			</div>
 			<button
 				class="p-2 bg-accent text-background w-fit rounded"
-				data-on-click={ datastar.POST("/article/new") }
+				data-on-click={ datastar.PostSSE("/article/new") }
 			>
 				Create
 			</button>

@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/delaneyj/datastar"
 	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
+	datastar "github.com/starfederation/datastar/sdk/go"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/ngsalvo/roadmapsh-personal-blog/repositories"
@@ -29,7 +29,7 @@ func (h *updateArticle) Handle(w http.ResponseWriter, r *http.Request) {
 	slug := chi.URLParam(r, "slug")
 
 	var store dtos.ArticleStore
-	err := datastar.BodyUnmarshal(r, &store)
+	err := datastar.ReadSignals(r, &store)
 
 	if err != nil {
 		log.Println(err)
@@ -44,7 +44,7 @@ func (h *updateArticle) Handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	sse := datastar.NewSSE(w, r)
-	datastar.Redirect(sse, "/admin")
+	sse.Redirect("/admin")
 
 	return
 }

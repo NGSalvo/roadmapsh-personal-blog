@@ -3,7 +3,7 @@
 </span> <time datetime=\"
 \" class=\"text-gray-600 group-hover:text-secondary group-visited:text-accent\">
 </time></a></li>
-<li class=\"flex justify-between\" data-store=\"{confirm: false}\"><a href=\"
+<li class=\"flex justify-between\" data-signals=\"{confirm: false}\"><a href=\"
 \" class=\"hover:text-secondary visited:text-accent\"><span class=\"group-hover:text-secondary group-visited:text-accent\">
 </span></a><div class=\"flex gap-2 mb-2\"><a href=\"
 \" class=\"py-[1px] px-3 ring-1 ring-emerald-500 hover:bg-emerald-500 hover:text-background rounded text-sm\">Edit</a> <button id=\"dialogs\" class=\"py-[1px] px-3 ring-1 ring-rose-600 hover:bg-rose-600 hover:text-background rounded text-sm\" data-on-click=\"
@@ -11,8 +11,8 @@
 <h1 class=\"text-3xl font-bold\">
 </h1><article class=\"prose md:prose-lg lg:prose-xl\">
 </article>
-<div class=\"flex flex-col\" data-store=\"
-\"><h1 class=\"text-3xl font-bold\">Update Article</h1><div class=\"flex flex-col max-w-80 md:max-w-full mb-2\"><input type=\"text\" name=\"title\" placeholder=\"Article title\" data-model=\"title\"> <textarea name=\"content\" placeholder=\"Content\" rows=\"10\" data-model=\"content\"></textarea></div><button class=\"p-2 bg-accent text-background w-fit rounded\" data-on-click=\"
+<div class=\"flex flex-col\" data-signals=\"
+\"><h1 class=\"text-3xl font-bold\">Update Article</h1><div class=\"flex flex-col max-w-80 md:max-w-full mb-2\"><input type=\"text\" name=\"title\" placeholder=\"Article title\" data-bind=\"title\"> <textarea name=\"content\" placeholder=\"Content\" rows=\"10\" data-bind=\"content\"></textarea></div><button class=\"p-2 bg-accent text-background w-fit rounded\" data-on-click=\"
 \">Update</button></div>
-<div class=\"flex flex-col\" data-store=\"{&#39;title&#39;: &#39;&#39;, content: &#39;&#39;}\"><h1 class=\"text-3xl font-bold\">New Article</h1><div class=\"flex flex-col max-w-80 md:max-w-full mb-2\"><input type=\"text\" name=\"title\" placeholder=\"Article title\" data-model=\"title\"> <textarea name=\"content\" placeholder=\"Content\" rows=\"10\" data-model=\"content\"></textarea></div><button class=\"p-2 bg-accent text-background w-fit rounded\" data-on-click=\"
+<div class=\"flex flex-col\" data-signals=\"{&#39;title&#39;: &#39;&#39;, content: &#39;&#39;}\"><h1 class=\"text-3xl font-bold\">New Article</h1><div class=\"flex flex-col max-w-80 md:max-w-full mb-2\"><input type=\"text\" name=\"title\" placeholder=\"Article title\" data-bind=\"title\"> <textarea name=\"content\" placeholder=\"Content\" rows=\"10\" data-bind=\"content\"></textarea></div><button class=\"p-2 bg-accent text-background w-fit rounded\" data-on-click=\"
 \">Create</button></div>
