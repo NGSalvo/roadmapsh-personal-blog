@@ -1,10 +1,8 @@
 package main
 
 import (
-	"errors"
 	"net/http"
 
-	"github.com/delaneyj/datastar"
 	"github.com/delaneyj/toolbelt"
 	"github.com/go-chi/chi/v5"
 	"github.com/gorilla/csrf"
@@ -60,8 +58,8 @@ func ConfigureRoutes(r chi.Router) {
 
 func CSRFErrorHandler() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		sse := datastar.NewSSE(w, r)
-		datastar.Error(sse, errors.New("CSRF token mismatch"))
+		http.Error(w, "CSRF token mismatch", http.StatusForbidden)
+		return
 	})
 }
 

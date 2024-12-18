@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/delaneyj/datastar"
 	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
+	datastar "github.com/starfederation/datastar/sdk/go"
 
 	"github.com/ngsalvo/roadmapsh-personal-blog/repositories"
 )
@@ -27,7 +27,7 @@ func NewCreateArticle(fileReader repositories.FileReader) CreateArticle {
 func (h *createArticle) Handle(w http.ResponseWriter, r *http.Request) {
 
 	var article dtos.NewArticle
-	err := datastar.BodyUnmarshal(r, &article)
+	err := datastar.ReadSignals(r, &article)
 
 	if err != nil {
 		log.Println(err)
@@ -42,7 +42,7 @@ func (h *createArticle) Handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	sse := datastar.NewSSE(w, r)
-	datastar.Redirect(sse, "/admin")
+	sse.Redirect("/admin")
 
 	return
 }

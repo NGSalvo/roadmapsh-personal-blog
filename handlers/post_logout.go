@@ -3,9 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/delaneyj/datastar"
 	"github.com/gorilla/sessions"
 	"github.com/ngsalvo/roadmapsh-personal-blog/internal"
+	datastar "github.com/starfederation/datastar/sdk/go"
 )
 
 type PostLogout interface {
@@ -27,5 +27,5 @@ func (h *postLogout) Handle(w http.ResponseWriter, r *http.Request) {
 
 	sse := datastar.NewSSE(w, r)
 
-	datastar.Redirect(sse, "/")
+	sse.Redirect("/")
 }

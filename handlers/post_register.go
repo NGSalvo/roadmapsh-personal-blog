@@ -4,10 +4,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/delaneyj/datastar"
 	"github.com/gorilla/sessions"
 	"github.com/ngsalvo/roadmapsh-personal-blog/dtos"
 	"github.com/ngsalvo/roadmapsh-personal-blog/internal"
+	datastar "github.com/starfederation/datastar/sdk/go"
 )
 
 type PostRegister interface {
@@ -25,8 +25,9 @@ func NewPostRegister(session sessions.Store) PostRegister {
 }
 
 func (pr postRegister) Handle(w http.ResponseWriter, r *http.Request) {
+	log.Println("POST /register")
 	var store dtos.UserLogin
-	err := datastar.BodyUnmarshal(r, &store)
+	err := datastar.ReadSignals(r, &store)
 
 	if err != nil {
 		log.Println(err)
@@ -47,5 +48,5 @@ func (pr postRegister) Handle(w http.ResponseWriter, r *http.Request) {
 
 	sse := datastar.NewSSE(w, r)
 
-	datastar.Redirect(sse, "/")
+	sse.Redirect("/")
 }
